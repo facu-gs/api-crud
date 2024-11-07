@@ -80,6 +80,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productDTO);
     }
 
+    //TODO: Retrieve Product by name
     @Operation(summary = "Retrieve a Product by name",
             description = "Get a product by specifying its name, if exist, otherwise return a product not found. The response is a Product object with name, price and date.",
             tags = { "product", "get", "id" })
