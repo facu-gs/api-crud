@@ -58,7 +58,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> createProduct(
                 @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Updated product details", required = true,
                         content = @Content(mediaType = "application/json",
-                                schema = @Schema(implementation = ProductDTO.class))) //Swagger annotation
+                                schema = @Schema(implementation = ProductDTO.class)))
                 @org.springframework.web.bind.annotation.RequestBody final ProductDTO productDTO) {
         return ResponseEntity.ok().body(this.productService.createProduct(productDTO));
     }
@@ -77,10 +77,9 @@ public class ProductController {
             @PathVariable Long id) {
         ProductDTO productDTO = productService.getProductById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
-        return ResponseEntity.ok().body(productDTO);
+        return ResponseEntity.ok(productDTO);
     }
 
-    //TODO: Retrieve Product by name
     @Operation(summary = "Retrieve a Product by name",
             description = "Get a product by specifying its name, if exist, otherwise return a product not found. The response is a Product object with name, price and date.",
             tags = { "product", "get", "id" })
@@ -89,12 +88,12 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProductDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)})
-    @GetMapping("/{id}")
-    public ResponseEntity<String> getProductByName(
-            @Parameter(description = "ID of the product to be searched", required = true)
-            @PathVariable Long id) {
-        //List<ProductDTO> productsDTO;
-        return ResponseEntity.ok().body("TODO");
+    @GetMapping("/name/{productName}")
+    public ResponseEntity<List<ProductDTO>> getProductByName(
+            @Parameter(description = "Name of the product to be searched", required = true)
+            @PathVariable String productName) {
+        List<ProductDTO> productsDTO = productService.getProductsByName(productName);
+        return ResponseEntity.ok(productsDTO);
     }
 
     @Operation(summary = "Update a product",

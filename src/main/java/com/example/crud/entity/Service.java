@@ -13,13 +13,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "service")
+public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name="name")
     private String name;
 
@@ -29,7 +28,7 @@ public class Product {
     @Column(name="date")
     private LocalDate date;
 
-    public Product(String name, float price, LocalDate date) {
+    public Service(String name, float price, LocalDate date) {
         this.name = name;
         this.price = price;
         this.date = date;

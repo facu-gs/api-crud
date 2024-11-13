@@ -50,6 +50,11 @@ public class ProductService {
         return productMapper.toDto(updatedProduct);
     }
 
+    public List<ProductDTO> getProductsByName(String name) {
+        return productRepository.findByName(name).stream()
+                .map(productMapper::toDto).toList();
+    }
+
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
