@@ -21,10 +21,8 @@ public class Service {
     private Long id;
     @Column(name="name")
     private String name;
-
     @Column(name="price")
     private float price;
-
     @Column(name="date")
     private LocalDate date;
 
